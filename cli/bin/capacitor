@@ -5,15 +5,14 @@ var satisfies = require('semver/functions/satisfies');
 var packageJson = require('../package.json');
 var requiresNodeVersion = packageJson.engines.node;
 
-// FOR SOME REASON IT'S BROKEN!
-//if (!satisfies(process.version, requiresNodeVersion, { includePrerelease: true})) {
-//  process.stdout.write(
-//    '\x1b[31m[fatal]\x1b[39m The Capacitor CLI requires NodeJS ' + requiresNodeVersion + '\n' +
-//    '        Please install the latest LTS version.\n'
-//  );
-//
-//  process.exit(1);
-//}
+if (!satisfies(process.version, requiresNodeVersion, { includePrerelease: true})) {
+  process.stdout.write(
+    '\x1b[31m[fatal]\x1b[39m The Capacitor CLI requires NodeJS ' + requiresNodeVersion + '\n' +
+    '        Please install the latest LTS version.\n'
+  );
+  //FOR SOME REASON this version check is BROKEN! So i just output message, but allow it to continue it's work.
+  // process.exit(1);
+}
 
 var cli = require('../dist/index');
 cli.run();
